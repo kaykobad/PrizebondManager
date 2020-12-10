@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:prizebond_manager/constants/number_constants.dart';
 import 'package:prizebond_manager/constants/string_constants.dart';
 import 'package:prizebond_manager/data/data_store/data_store.dart';
+import 'package:prizebond_manager/ui/prizrbonds_screen/home_screen.dart';
 import 'splash_screen_bloc.dart';
 import 'splash_screen_event.dart';
 import 'splash_screen_state.dart';
@@ -35,8 +36,9 @@ class _SplashScreenState extends State<SplashScreen> {
         listener: (context, state) {
           if (state is DataFetchSuccessState) {
             _dataStore.allPrizeBonds = state.allPrizeBonds;
-            // TODO: Navigate to home page
-            print(state.allPrizeBonds);
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ));
           } else if (state is DataFetchFailureState) {
             _showErrorDialog();
           }
