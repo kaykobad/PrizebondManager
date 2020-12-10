@@ -20,6 +20,16 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_screenTitles[_selectedIndex]),
+        actions: [
+          IconButton(
+            padding: EdgeInsets.only(right: 16, left: 12),
+            icon: Icon(Icons.backup),
+            tooltip: BACKUP_DATABASE,
+            onPressed: () {
+              // TODO: Implement backup logic
+            },
+          ),
+        ],
       ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: ConvexAppBar(
@@ -28,6 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
           TabItem(icon: Icons.home, title: ALL_PRIZEBONDS),
           TabItem(icon: Icons.money, title: CHECK_PRIZEBONDS_DRAW),
         ],
+        backgroundColor: Colors.deepPurple,
+        style: TabStyle.reactCircle,
         initialActiveIndex: _selectedIndex,
         onTap: (index) {
           setState(() {

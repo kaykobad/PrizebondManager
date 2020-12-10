@@ -6,3 +6,4 @@ const String BUTTON_CLOSE_APPLICATION = "Exit";
 const String ALL_PRIZEBONDS = "All Prizebonds";
 const String ADD_PRIZEBONDS = "Add Prizebonds";
 const String CHECK_PRIZEBONDS_DRAW = "Check Prizebonds Draw";
+const String BACKUP_DATABASE = "Backup Database";
