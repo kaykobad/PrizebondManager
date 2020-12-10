@@ -1,6 +1,8 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prizebond_manager/constants/string_constants.dart';
+import 'package:prizebond_manager/data/data_store/data_store.dart';
 import 'package:prizebond_manager/ui/prizrbonds_screen/add_prizebonds_screen.dart';
 import 'package:prizebond_manager/ui/prizrbonds_screen/all_prizebonds_screen.dart';
 import 'package:prizebond_manager/ui/prizrbonds_screen/check_draw_result_screen.dart';
@@ -13,7 +15,21 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final List<String> _screenTitles = [ADD_PRIZEBONDS, ALL_PRIZEBONDS, CHECK_PRIZEBONDS_DRAW];
   final List<Widget> _screens = [AddPrizeBondsScreen(), AllPrizeBondsScreen(), CheckPrizeBondDrawScreen()];
-  int _selectedIndex = 1;
+  DataStore _dataStore;
+  int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = 1;
+    _dataStore = RepositoryProvider.of<DataStore>(context);
+  }
+
+  void _setSelectedIndex(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: _screens[_selectedIndex],
+      body: _getScreen(),
       bottomNavigationBar: ConvexAppBar(
         items: [
           TabItem(icon: Icons.add, title: ADD_PRIZEBONDS),
@@ -48,5 +64,15 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
     );
+  }
+
+  Widget _getScreen() {
+    if (_selectedIndex == 1) {
+      return AllPrizeBondsScreen(
+        setSelectedIndex: _setSelectedIndex,
+        allPrizeBonds: _dataStore.allPrizeBonds,
+      );
+    }
+    return _screens[_selectedIndex];
   }
 }
