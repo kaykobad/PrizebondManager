@@ -31,11 +31,6 @@ class _AllPrizeBondsScreenState extends State<AllPrizeBondsScreen> {
           Text(NO_PRIZEBOND_IN_DB),
           SizedBox(height: 8),
           Text(ADD_PRIZEBOND_IN_DB),
-          SizedBox(height: 8),
-          RaisedButton(
-            child: Text(BUTTON_ADD_PRIZEBOND),
-            onPressed: () => widget.setSelectedIndex(0),
-          )
         ],
       );
     }

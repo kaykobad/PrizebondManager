@@ -18,6 +18,9 @@ class MyApp extends StatelessWidget {
         title: 'Prizebond Manager',
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
+          textTheme: TextTheme(
+            bodyText2: TextStyle(fontSize: 16.0),
+          )
         ),
         home: SplashScreen(),
       ),

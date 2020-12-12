@@ -9,4 +9,4 @@ const String BUTTON_ADD_PRIZEBOND = "Add Prizebond";
 const String CHECK_PRIZEBONDS_DRAW = "Check Prizebonds Draw";
 const String BACKUP_DATABASE = "Backup Database";
 const String NO_PRIZEBOND_IN_DB = "There is no prizebond record in the database.";
-const String ADD_PRIZEBOND_IN_DB = "Add prizebonds by tapping on the following button.";
+const String ADD_PRIZEBOND_IN_DB = "Add prizebonds by tapping on the + button on the lower right.";

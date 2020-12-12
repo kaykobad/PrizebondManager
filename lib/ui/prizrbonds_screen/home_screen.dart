@@ -48,6 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: _getScreen(),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _setSelectedIndex(0),
+        tooltip: "Add Prizebond",
+      ),
       bottomNavigationBar: ConvexAppBar(
         items: [
           TabItem(icon: Icons.add, title: ADD_PRIZEBONDS),
@@ -62,6 +67,21 @@ class _HomeScreenState extends State<HomeScreen> {
             _selectedIndex = index;
           });
         },
+      ),
+    );
+  }
+
+  Widget _getFAB() {
+    return RaisedButton(
+      child: Text(
+        BUTTON_ADD_PRIZEBOND,
+        style: TextStyle(color: Colors.white),
+      ),
+      onPressed: () => _setSelectedIndex(0),
+      color: Colors.deepPurple,
+      padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 24.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18.0),
       ),
     );
   }
