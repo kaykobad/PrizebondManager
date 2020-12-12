@@ -10,3 +10,5 @@ const String CHECK_PRIZEBONDS_DRAW = "Check Prizebonds Draw";
 const String BACKUP_DATABASE = "Backup Database";
 const String NO_PRIZEBOND_IN_DB = "There is no prizebond record in the database.";
 const String ADD_PRIZEBOND_IN_DB = "Add prizebonds by tapping on the + button on the lower right.";
+const String ADD_PRIZEBOND_RULES = "Rules to add prizebonds:";
+const String ADD_PRIZEBOND_HINT = "Enter prizebond number";
