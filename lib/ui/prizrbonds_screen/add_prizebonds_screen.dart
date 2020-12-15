@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prizebond_manager/constants/string_constants.dart';
+import 'package:prizebond_manager/data/database/db_provider.dart';
+import 'package:prizebond_manager/data/models/prizebond.dart';
 
 class AddPrizeBondsScreen extends StatefulWidget {
   @override
@@ -99,19 +101,34 @@ class _AddPrizeBondsScreenState extends State<AddPrizeBondsScreen> {
   }
 
   void _processAndInsertIntoDB() {
+    // Get rid of unnecessary characters and extract all numbers
     List<String> _prizeBondNumbers = [];
     String _text = _controller.text.replaceAll(" ", "");
     List<String> _texts = _text.split(",");
+    _error.clear();
+
     for (String text in _texts) {
       _prizeBondNumbers.addAll(_processNumber(text));
     }
+
+    // Remove duplicate number and insert into database
     _prizeBondNumbers = _prizeBondNumbers.toSet().toList();
-    print(_prizeBondNumbers);
-    // Extract the numbers
-    // Pad them if necessary
-    // Create a list
-    // Create Prizebonds object
-    // Insert into db
+    _insertIntoDb(_prizeBondNumbers);
+  }
+
+  void _insertIntoDb(List<String> prizeBondNumbers) async {
+    List<PrizeBond> _allBonds = [];
+
+    for (String number in prizeBondNumbers) {
+      _allBonds.add(PrizeBond(prizeBondNumber: number));
+    }
+
+    List<int> _ids = await DBProvider.db.insertAllPrizeBonds(_allBonds);
+    List<PrizeBond> _all = await DBProvider.db.getAllPrizeBonds();
+
+    print(_ids);
+    print(_all);
+    print(_error);
   }
 
   List<String> _processNumber(String numberText) {
