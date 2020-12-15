@@ -9,6 +9,7 @@ class AddPrizeBondsScreen extends StatefulWidget {
 
 class _AddPrizeBondsScreenState extends State<AddPrizeBondsScreen> {
   TextEditingController _controller;
+  List<String> _error = [];
   final List<String> _rules = [
     "1. To add a single number, just type the number like: 0012345",
     "2. To add multiple numbers, separate them with comma like: 0012345, 9876543",
@@ -77,7 +78,7 @@ class _AddPrizeBondsScreenState extends State<AddPrizeBondsScreen> {
       controller: _controller,
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+        FilteringTextInputFormatter.allow(RegExp(r'[0-9,~ ]')),
       ],
     );
   }
@@ -93,9 +94,55 @@ class _AddPrizeBondsScreenState extends State<AddPrizeBondsScreen> {
         ),
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      onPressed: () {
-        // TODO: Add db input logic here
-      },
+      onPressed: () => _processAndInsertIntoDB(),
     );
+  }
+
+  void _processAndInsertIntoDB() {
+    List<String> _prizeBondNumbers = [];
+    String _text = _controller.text.replaceAll(" ", "");
+    List<String> _texts = _text.split(",");
+    for (String text in _texts) {
+      _prizeBondNumbers.addAll(_processNumber(text));
+    }
+    _prizeBondNumbers = _prizeBondNumbers.toSet().toList();
+    print(_prizeBondNumbers);
+    // Extract the numbers
+    // Pad them if necessary
+    // Create a list
+    // Create Prizebonds object
+    // Insert into db
+  }
+
+  List<String> _processNumber(String numberText) {
+    List<String> _formattedNumbers = [];
+    
+    if (numberText.contains("~")) {
+      List<String> _allNum = numberText.split("~");
+
+      if (_allNum.length == 2) {
+        int _numStart = int.tryParse(_allNum[0]);
+        int _numEnd = int.tryParse(_allNum[1]);
+
+        if (_numStart < _numEnd) {
+          for (int i=_numStart; i<=_numEnd; i++) {
+            String _n = i.toString().padLeft(7, '0');
+            if (_n.length != 7) _error.add(_n);
+            else _formattedNumbers.add(_n);
+          }
+        } else {
+          _error.add(numberText);
+        }
+      } else {
+        _error.add(numberText);
+      }
+
+    } else {
+      String _n = numberText.padLeft(7, '0');
+      if (_n.length != 7) _error.add(_n);
+      else _formattedNumbers.add(_n);
+    }
+
+    return _formattedNumbers;
   }
 }
