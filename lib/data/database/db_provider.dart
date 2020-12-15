@@ -36,11 +36,28 @@ class DBProvider {
 
   Future<int> insertPrizeBond(PrizeBond prizeBond) async {
     final db = await database;
+    prizeBond.insertDate = DateTime.now().toString();
+    prizeBond.updateDate = "";
     return await db.insert("PrizeBond", prizeBond.toMap());
+  }
+
+  Future<List<int>> insertAllPrizeBonds(List<PrizeBond> prizeBonds) async {
+    final db = await database;
+    List<int> ids = [];
+
+    for (PrizeBond prizeBond in prizeBonds) {
+      prizeBond.insertDate = DateTime.now().toString();
+      prizeBond.updateDate = "";
+      int id = await db.insert("PrizeBond", prizeBond.toMap());
+      ids.add(id);
+    }
+
+    return ids;
   }
 
   Future<int> updatePrizeBond(PrizeBond prizeBond) async {
     final db = await database;
+    prizeBond.updateDate = DateTime.now().toString();
     return await db.update("PrizeBond", prizeBond.toMap(), where: "id = ?", whereArgs: [prizeBond.id]);
   }
 

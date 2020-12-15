@@ -1,8 +1,8 @@
 class PrizeBond {
-  final int id;
-  final String prizeBondNumber;
-  final String insertDate;
-  final String updateDate;
+  int id;
+  String prizeBondNumber;
+  String insertDate;
+  String updateDate;
 
   PrizeBond({this.id, this.prizeBondNumber, this.insertDate, this.updateDate});
 
