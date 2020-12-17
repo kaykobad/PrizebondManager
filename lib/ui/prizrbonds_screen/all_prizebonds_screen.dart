@@ -1,24 +1,28 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:prizebond_manager/constants/string_constants.dart';
+import 'package:prizebond_manager/data/data_store/data_store.dart';
 import 'package:prizebond_manager/data/models/prizebond.dart';
 
 class AllPrizeBondsScreen extends StatefulWidget {
-  final List<PrizeBond> allPrizeBonds;
-
-  const AllPrizeBondsScreen({Key key, this.allPrizeBonds}) : super(key: key);
-
   @override
   _AllPrizeBondsScreenState createState() => _AllPrizeBondsScreenState();
 }
 
 class _AllPrizeBondsScreenState extends State<AllPrizeBondsScreen> {
   List<bool> _selected;
+  bool _isAsc = true;
+  int _sortColumnIndex = 1;
+  DataStore _dataStore;
+  List<PrizeBond> _allBondsToShow;
 
   @override
   void initState() {
     super.initState();
-    _selected = List<bool>.generate(widget.allPrizeBonds.length, (index) => false);
+    _dataStore = RepositoryProvider.of<DataStore>(context);
+    _allBondsToShow = _dataStore.numericallySortedPrizeBonds;
+    _selected = List<bool>.generate(_allBondsToShow.length, (index) => false);
   }
 
   @override
@@ -29,7 +33,7 @@ class _AllPrizeBondsScreenState extends State<AllPrizeBondsScreen> {
   }
 
   Widget _getBody() {
-    if (widget.allPrizeBonds.isEmpty) {
+    if (_allBondsToShow.isEmpty) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -42,21 +46,65 @@ class _AllPrizeBondsScreenState extends State<AllPrizeBondsScreen> {
 
     return DataTable(
       showCheckboxColumn: false,
+      sortColumnIndex: _sortColumnIndex,
+      sortAscending: _isAsc,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
       ),
       columns: [
         DataColumn(label: Text(SERIAL)),
-        DataColumn(label: Text(PRIZEBOND_NUMBER)),
-        DataColumn(label: Text(DATE_CREATED)),
-        DataColumn(label: Text(DATE_UPDATED)),
+        DataColumn(
+          label: Text(PRIZEBOND_NUMBER),
+          onSort: (columnIndex, isAsc) {
+            setState(() {
+              if (columnIndex == _sortColumnIndex) {
+                _isAsc = isAsc;
+              } else {
+                _sortColumnIndex = columnIndex;
+                _isAsc = isAsc;
+              }
+              _allBondsToShow = _dataStore.numericallySortedPrizeBonds;
+              if (!_isAsc) _allBondsToShow = _allBondsToShow.reversed.toList();
+            });
+          },
+        ),
+        DataColumn(
+          label: Text(DATE_CREATED),
+          onSort: (columnIndex, isAsc) {
+            setState(() {
+              if (columnIndex == _sortColumnIndex) {
+                _isAsc = isAsc;
+              } else {
+                _sortColumnIndex = columnIndex;
+                _isAsc = isAsc;
+              }
+              _allBondsToShow = _dataStore.createDateWiseSortedPrizeBonds;
+              if (!_isAsc) _allBondsToShow = _allBondsToShow.reversed.toList();
+            });
+          },
+        ),
+        DataColumn(
+          label: Text(DATE_UPDATED),
+          onSort: (columnIndex, isAsc) {
+            setState(() {
+              if (columnIndex == _sortColumnIndex) {
+                _isAsc = isAsc;
+              } else {
+                _sortColumnIndex = columnIndex;
+                _isAsc = isAsc;
+              }
+              _allBondsToShow = _dataStore.updateDateWiseSortedPrizeBonds;
+              if (!_isAsc) _allBondsToShow = _allBondsToShow.reversed.toList();
+            });
+          },
+        ),
         DataColumn(label: Text(ACTIONS)),
       ],
       rows: List<DataRow>.generate(
-        widget.allPrizeBonds.length,
+       _allBondsToShow.length,
         (index) {
-          String _startDate = widget.allPrizeBonds[index].insertDate;
-          String _updateDate = widget.allPrizeBonds[index].updateDate;
+          String _startDate = _allBondsToShow[index].insertDate;
+          String _updateDate = _allBondsToShow[index].updateDate;
           _startDate = _startDate == "" ? "-" : DateFormat.yMMMMd('en_US').format(DateTime.parse(_startDate));
           _updateDate = _updateDate == "" ? "-" : DateFormat.yMMMMd('en_US').format(DateTime.parse(_updateDate));
 
@@ -69,13 +117,13 @@ class _AllPrizeBondsScreenState extends State<AllPrizeBondsScreen> {
               }),
             cells: [
               DataCell(Center(child: Text('${index+1}'))),
-              DataCell(Center(child: Text('${widget.allPrizeBonds[index].prizeBondNumber}'))),
+              DataCell(Center(child: Text('${_allBondsToShow[index].prizeBondNumber}'))),
               DataCell(Center(child: Text('$_startDate'))),
               DataCell(Center(child: Text('$_updateDate'))),
               DataCell(IconButton(
                 alignment: Alignment.center,
                 icon: Icon(Icons.delete_forever, color: Colors.red),
-                onPressed: () => print("Deleting ${widget.allPrizeBonds[index].id}..."),
+                onPressed: () => print("Deleting ${_allBondsToShow[index].id}..."),
               )),
             ],
             selected: _selected[index],

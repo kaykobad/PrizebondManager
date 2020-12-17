@@ -114,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (_selectedIndex == 0) {
       return AddPrizeBondsScreen(prizeBondManagerBloc: _prizeBondManagerBloc);
     } else if (_selectedIndex == 1) {
-      return AllPrizeBondsScreen(allPrizeBonds: _dataStore.numericallySortedPrizeBonds);
+      return AllPrizeBondsScreen();
     }
     return _screens[_selectedIndex];
   }
