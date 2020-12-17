@@ -4,9 +4,13 @@ import 'package:prizebond_manager/constants/string_constants.dart';
 import 'package:prizebond_manager/data/models/prizebond.dart';
 
 import 'prizebond_bloc/prizebond_bloc.dart';
+import 'prizebond_bloc/prizebond_event.dart';
 
 class AddPrizeBondsScreen extends StatefulWidget {
-  PrizeBondManagerBloc prizeBondManagerBloc;
+  final PrizeBondManagerBloc prizeBondManagerBloc;
+
+  const AddPrizeBondsScreen({Key key, this.prizeBondManagerBloc}) : super(key: key);
+
   @override
   _AddPrizeBondsScreenState createState() => _AddPrizeBondsScreenState();
 }
@@ -125,7 +129,7 @@ class _AddPrizeBondsScreenState extends State<AddPrizeBondsScreen> {
       _allBonds.add(PrizeBond(prizeBondNumber: number));
     }
 
-
+    widget.prizeBondManagerBloc.add(InsertDataEvent(_allBonds));
   }
 
   List<String> _processNumber(String numberText) {

@@ -111,7 +111,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _getScreen() {
-    if (_selectedIndex == 1) {
+    if (_selectedIndex == 0) {
+      return AddPrizeBondsScreen(prizeBondManagerBloc: _prizeBondManagerBloc);
+    } else if (_selectedIndex == 1) {
       return AllPrizeBondsScreen(allPrizeBonds: _dataStore.allPrizeBonds);
     }
     return _screens[_selectedIndex];
