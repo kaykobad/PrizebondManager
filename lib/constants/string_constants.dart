@@ -12,3 +12,9 @@ const String NO_PRIZEBOND_IN_DB = "There is no prizebond record in the database.
 const String ADD_PRIZEBOND_IN_DB = "Add prizebonds by tapping on the + button on the lower right.";
 const String ADD_PRIZEBOND_RULES = "Rules to add prizebonds:";
 const String ADD_PRIZEBOND_HINT = "Enter prizebond number";
+
+const String SERIAL = "SL";
+const String PRIZEBOND_NUMBER = "Prizebond Number";
+const String DATE_CREATED = "Created on";
+const String DATE_UPDATED = "Last updated";
+const String ACTIONS = "Actions";
