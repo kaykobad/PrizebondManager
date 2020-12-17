@@ -3,13 +3,9 @@ import 'package:prizebond_manager/constants/string_constants.dart';
 import 'package:prizebond_manager/data/models/prizebond.dart';
 
 class AllPrizeBondsScreen extends StatefulWidget {
-  final Function(int) setSelectedIndex;
   final List<PrizeBond> allPrizeBonds;
 
-  const AllPrizeBondsScreen({Key key,
-    this.setSelectedIndex,
-    this.allPrizeBonds,
-  }) : super(key: key);
+  const AllPrizeBondsScreen({Key key, this.allPrizeBonds}) : super(key: key);
 
   @override
   _AllPrizeBondsScreenState createState() => _AllPrizeBondsScreenState();

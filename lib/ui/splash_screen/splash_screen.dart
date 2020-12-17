@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
           if (state is DataFetchSuccessState) {
             _dataStore.allPrizeBonds = state.allPrizeBonds;
             Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => HomeScreen(),
+              builder: (context) => HomeScreen(selectedIndex: 1),
             ));
           } else if (state is DataFetchFailureState) {
             _showErrorDialog();
