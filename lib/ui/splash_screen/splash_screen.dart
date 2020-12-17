@@ -5,7 +5,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:prizebond_manager/constants/number_constants.dart';
 import 'package:prizebond_manager/constants/string_constants.dart';
 import 'package:prizebond_manager/data/data_store/data_store.dart';
-import 'package:prizebond_manager/ui/prizrbonds_screen/home_screen.dart';
+
+import '../prizrbonds_screen/home_screen.dart';
 import 'splash_screen_bloc.dart';
 import 'splash_screen_event.dart';
 import 'splash_screen_state.dart';
@@ -25,6 +26,12 @@ class _SplashScreenState extends State<SplashScreen> {
     _dataStore = RepositoryProvider.of<DataStore>(context);
     _splashScreenBloc = SplashScreenBloc();
     _splashScreenBloc.add(InitiateDataFetchEvent());
+  }
+
+  @override
+  void dispose() {
+    _splashScreenBloc?.close();
+    super.dispose();
   }
 
   @override

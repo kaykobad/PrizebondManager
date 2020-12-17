@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prizebond_manager/constants/string_constants.dart';
-import 'package:prizebond_manager/data/database/db_provider.dart';
 import 'package:prizebond_manager/data/models/prizebond.dart';
 
+import 'prizebond_bloc/prizebond_bloc.dart';
+
 class AddPrizeBondsScreen extends StatefulWidget {
+  PrizeBondManagerBloc prizeBondManagerBloc;
   @override
   _AddPrizeBondsScreenState createState() => _AddPrizeBondsScreenState();
 }
@@ -123,12 +125,7 @@ class _AddPrizeBondsScreenState extends State<AddPrizeBondsScreen> {
       _allBonds.add(PrizeBond(prizeBondNumber: number));
     }
 
-    List<int> _ids = await DBProvider.db.insertAllPrizeBonds(_allBonds);
-    List<PrizeBond> _all = await DBProvider.db.getAllPrizeBonds();
 
-    print(_ids);
-    print(_all);
-    print(_error);
   }
 
   List<String> _processNumber(String numberText) {

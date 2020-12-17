@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:prizebond_manager/data/data_store/data_store.dart';
-import 'package:prizebond_manager/ui/splash_screen/splash_screen.dart';
 
-void main() {
-  runApp(MyApp());
-}
+import 'constants/string_constants.dart';
+import 'data/data_store/data_store.dart';
+import 'ui/splash_screen/splash_screen.dart';
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
 
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       create: (context) => DataStore(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Prizebond Manager',
+        title: APP_NAME,
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
           textTheme: TextTheme(
