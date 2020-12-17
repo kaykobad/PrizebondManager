@@ -97,14 +97,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _navigateToScreen(int index) {
-    if (index != _selectedIndex) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => HomeScreen(selectedIndex: index)
-      ));
-    }
-  }
-
   Widget _getScreen() {
     if (_selectedIndex == 0) {
       return AddPrizeBondsScreen(prizeBondManagerBloc: _prizeBondManagerBloc);
@@ -122,6 +114,4 @@ class _HomeScreenState extends State<HomeScreen> {
       text: text,
     );
   }
-
-  // TODO: Add policy for checking multiple dialog
 }

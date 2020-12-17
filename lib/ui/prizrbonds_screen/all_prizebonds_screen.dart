@@ -61,7 +61,7 @@ class _AllPrizeBondsScreenState extends State<AllPrizeBondsScreen> {
 
   Widget _getSearchBox() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 30.0),
+      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
       child: TypeAheadField(
         textFieldConfiguration: TextFieldConfiguration(
           keyboardType: TextInputType.number,
@@ -78,10 +78,16 @@ class _AllPrizeBondsScreenState extends State<AllPrizeBondsScreen> {
           return _dataStore.searchPrizeBond(pattern);
         },
         itemBuilder: (context, suggestion) {
+          String _startDate = suggestion.insertDate;
+          String _updateDate = suggestion.updateDate;
+          _startDate = _startDate == "" ? "" : "Created on: " + DateFormat.yMMMMd('en_US').format(DateTime.parse(_startDate));
+          _updateDate = _updateDate == "" ? "Never Updated" : "Updated on" + DateFormat.yMMMMd('en_US').format(DateTime.parse(_updateDate));
+
           return ListTile(
             leading: Icon(Icons.money),
-            title: Text(suggestion.prizeBondNumber),
-            subtitle: Text('${suggestion.insertDate}'),
+            title: Text("Bond Number: ${suggestion.prizeBondNumber}"),
+            subtitle: Text('$_updateDate'),
+            trailing: Text('$_startDate'),
           );
         },
         onSuggestionSelected: (suggestion) {
@@ -168,11 +174,7 @@ class _AllPrizeBondsScreenState extends State<AllPrizeBondsScreen> {
               DataCell(Center(child: Text('${_allBondsToShow[index].prizeBondNumber}'))),
               DataCell(Center(child: Text('$_startDate'))),
               DataCell(Center(child: Text('$_updateDate'))),
-              DataCell(IconButton(
-                alignment: Alignment.center,
-                icon: Icon(Icons.delete_forever, color: Colors.red),
-                onPressed: () => print("Deleting ${_allBondsToShow[index].id}..."),
-              )),
+              DataCell(_getActions(index)),
             ],
             selected: _selected[index],
             onSelectChanged: (bool value) {
@@ -183,6 +185,23 @@ class _AllPrizeBondsScreenState extends State<AllPrizeBondsScreen> {
           );
         },
       ),
+    );
+  }
+
+  _getActions(int index) {
+    return Row(
+      children: [
+        IconButton(
+          alignment: Alignment.center,
+          icon: Icon(Icons.edit_outlined, color: Colors.green),
+          onPressed: () => print("editing ${_allBondsToShow[index].id}..."),
+        ),
+        IconButton(
+          alignment: Alignment.center,
+          icon: Icon(Icons.delete_forever, color: Colors.red),
+          onPressed: () => print("Deleting ${_allBondsToShow[index].id}..."),
+        ),
+      ],
     );
   }
 }
