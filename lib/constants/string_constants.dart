@@ -18,3 +18,10 @@ const String PRIZEBOND_NUMBER = "Prizebond Number";
 const String DATE_CREATED = "Created on";
 const String DATE_UPDATED = "Last updated";
 const String ACTIONS = "Actions";
+
+const String SUCCESS_DIALOG_HEADER = "Success!";
+const String SUCCESS_DIALOG_MESSAGE = "Successfully added prizebonds to database.";
+const String ERROR_DIALOG_HEADER = "Error!";
+const String ERROR_DIALOG_MESSAGE = "Could not fetch data from database.";
+const String LOADING_DIALOG_HEADER = "Loading...";
+const String INSERTING_DIALOG_MESSAGE = "Inserting prizebonds in database.";

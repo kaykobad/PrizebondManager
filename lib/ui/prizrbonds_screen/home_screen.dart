@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prizebond_manager/constants/string_constants.dart';
@@ -50,14 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
       if (state is AllDataFetchSuccessState) {
         _dataStore.allPrizeBonds = state.allPrizeBonds;
       } else if (state is AllDataFetchFailureState) {
-        print("Could not fetch data.");
+        _showAlertDialog(ERROR_DIALOG_HEADER, ERROR_DIALOG_MESSAGE, CoolAlertType.error);
       } else if (state is InsertDataSuccessState) {
         _dataStore.allPrizeBonds = state.allPrizeBonds;
-        print("Inserted ids: ${state.ids}");
-        // TODO: Show success dialog
+        _showAlertDialog(SUCCESS_DIALOG_HEADER, SUCCESS_DIALOG_MESSAGE, CoolAlertType.success);
       } else if (state is InsertingDataState || state is FetchingAllDataState) {
-        print("Doing some work.");
-        // TODO: Show progress dialog
+        _showAlertDialog(LOADING_DIALOG_HEADER, INSERTING_DIALOG_MESSAGE, CoolAlertType.loading);
       }
     });
   }
@@ -118,4 +117,17 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     return _screens[_selectedIndex];
   }
+
+  void _showAlertDialog(String title, String text, CoolAlertType type) {
+    CoolAlert.show(
+      context: context,
+      type: type,
+      title: title,
+      text: text,
+    );
+  }
+
+  // TODO: Check if a prizebond is already in db before insert
+  // TODO: Add policy for checking multiple dialog
+  // TODO: Add sorting ability for the table
 }

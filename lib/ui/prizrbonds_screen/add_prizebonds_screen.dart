@@ -107,7 +107,6 @@ class _AddPrizeBondsScreenState extends State<AddPrizeBondsScreen> {
   }
 
   void _processAndInsertIntoDB() {
-    // Get rid of unnecessary characters and extract all numbers
     List<String> _prizeBondNumbers = [];
     String _text = _controller.text.replaceAll(" ", "");
     List<String> _texts = _text.split(",");
@@ -117,7 +116,6 @@ class _AddPrizeBondsScreenState extends State<AddPrizeBondsScreen> {
       _prizeBondNumbers.addAll(_processNumber(text));
     }
 
-    // Remove duplicate number and insert into database
     _prizeBondNumbers = _prizeBondNumbers.toSet().toList();
     _insertIntoDb(_prizeBondNumbers);
   }
