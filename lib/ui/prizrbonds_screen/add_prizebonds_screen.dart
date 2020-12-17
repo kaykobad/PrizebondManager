@@ -83,6 +83,7 @@ class _AddPrizeBondsScreenState extends State<AddPrizeBondsScreen> {
           borderRadius: BorderRadius.all(Radius.circular(16.0)),
         ),
       ),
+      autofocus: true,
       controller: _controller,
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[

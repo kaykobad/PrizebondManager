@@ -10,6 +10,7 @@ class DBProvider {
   static final DBProvider db = DBProvider._();
 
   Database _database;
+  static String dbPath;
 
   Future<Database> get database async {
     if (_database != null) return _database;
@@ -20,6 +21,7 @@ class DBProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, "prizeBondManager.db");
+    dbPath = path;
     return await openDatabase(path, version: 1,
       onOpen: (db) {},
       onCreate: (Database db, int version) async {
