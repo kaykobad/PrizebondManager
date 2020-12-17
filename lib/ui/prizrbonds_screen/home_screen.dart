@@ -79,11 +79,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: _getScreen(),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => _navigateToScreen(0),
-        tooltip: BUTTON_ADD_PRIZEBOND,
-      ),
       bottomNavigationBar: ConvexAppBar(
         items: [
           TabItem(icon: Icons.add, title: ADD_PRIZEBONDS),

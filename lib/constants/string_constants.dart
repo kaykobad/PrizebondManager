@@ -9,7 +9,7 @@ const String BUTTON_ADD_PRIZEBOND = "Add Prizebond";
 const String CHECK_PRIZEBONDS_DRAW = "Check Prizebonds Draw";
 const String BACKUP_DATABASE = "Backup Database";
 const String NO_PRIZEBOND_IN_DB = "There is no prizebond record in the database.";
-const String ADD_PRIZEBOND_IN_DB = "Add prizebonds by tapping on the + button on the lower right.";
+const String ADD_PRIZEBOND_IN_DB = "Add prizebonds by tapping on the + button on the bottom navigation bar.";
 const String ADD_PRIZEBOND_RULES = "Rules to add prizebonds:";
 const String ADD_PRIZEBOND_HINT = "Enter prizebond number";
 
@@ -26,3 +26,5 @@ const String ERROR_DIALOG_MESSAGE = "Could not fetch data from database.";
 const String INSERT_ERROR_DIALOG_MESSAGE = "Could not insert: # because they are in bad format.";
 const String LOADING_DIALOG_HEADER = "Loading...";
 const String INSERTING_DIALOG_MESSAGE = "Inserting prizebonds in database.";
+
+const String SEARCH_PRIZEBONDS = "Search prizebonds";

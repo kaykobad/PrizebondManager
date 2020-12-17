@@ -1,4 +1,6 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:prizebond_manager/constants/string_constants.dart';
@@ -44,6 +46,52 @@ class _AllPrizeBondsScreenState extends State<AllPrizeBondsScreen> {
       );
     }
 
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _getSearchBox(),
+          SizedBox(height: 12.0),
+          _getDataTable(),
+          SizedBox(height: 40.0),
+        ],
+      ),
+    );
+  }
+
+  Widget _getSearchBox() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 30.0),
+      child: TypeAheadField(
+        textFieldConfiguration: TextFieldConfiguration(
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+          ],
+          autofocus: false,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(18.0)),
+            hintText: SEARCH_PRIZEBONDS,
+          ),
+        ),
+        suggestionsCallback: (pattern) async {
+          return _dataStore.searchPrizeBond(pattern);
+        },
+        itemBuilder: (context, suggestion) {
+          return ListTile(
+            leading: Icon(Icons.money),
+            title: Text(suggestion.prizeBondNumber),
+            subtitle: Text('${suggestion.insertDate}'),
+          );
+        },
+        onSuggestionSelected: (suggestion) {
+          print(suggestion);
+        },
+      ),
+    );
+  }
+
+  Widget _getDataTable() {
     return DataTable(
       showCheckboxColumn: false,
       sortColumnIndex: _sortColumnIndex,
