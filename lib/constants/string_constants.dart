@@ -23,5 +23,6 @@ const String SUCCESS_DIALOG_HEADER = "Success!";
 const String SUCCESS_DIALOG_MESSAGE = "Successfully added prizebonds to database.";
 const String ERROR_DIALOG_HEADER = "Error!";
 const String ERROR_DIALOG_MESSAGE = "Could not fetch data from database.";
+const String INSERT_ERROR_DIALOG_MESSAGE = "Could not insert: # because they are in bad format.";
 const String LOADING_DIALOG_HEADER = "Loading...";
 const String INSERTING_DIALOG_MESSAGE = "Inserting prizebonds in database.";

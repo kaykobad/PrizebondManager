@@ -22,7 +22,7 @@ class PrizeBondManagerBloc extends Bloc<PrizeBondManagerEvent, PrizeBondManagerS
       yield InsertingDataState();
       List<int> _ids = await DBProvider.db.insertAllPrizeBonds(event.prizeBonds);
       List<PrizeBond> _allPrizeBonds = await DBProvider.db.getAllPrizeBonds();
-      yield InsertDataSuccessState(_ids, _allPrizeBonds);
+      yield InsertDataSuccessState(_ids, _allPrizeBonds, event.errorIds);
     }
   }
 

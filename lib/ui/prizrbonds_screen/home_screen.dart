@@ -54,9 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
         _showAlertDialog(ERROR_DIALOG_HEADER, ERROR_DIALOG_MESSAGE, CoolAlertType.error);
       } else if (state is InsertDataSuccessState) {
         _dataStore.allPrizeBonds = state.allPrizeBonds;
-        _showAlertDialog(SUCCESS_DIALOG_HEADER, SUCCESS_DIALOG_MESSAGE, CoolAlertType.success);
+        if (state.ids.isNotEmpty) _showAlertDialog(SUCCESS_DIALOG_HEADER, SUCCESS_DIALOG_MESSAGE, CoolAlertType.success);
+        if (state.errorIds.isNotEmpty) _showAlertDialog(ERROR_DIALOG_HEADER, INSERT_ERROR_DIALOG_MESSAGE.replaceAll("#", state.errorIds.join(", ")), CoolAlertType.error);
       } else if (state is InsertingDataState || state is FetchingAllDataState) {
-        _showAlertDialog(LOADING_DIALOG_HEADER, INSERTING_DIALOG_MESSAGE, CoolAlertType.loading);
+        // _showAlertDialog(LOADING_DIALOG_HEADER, INSERTING_DIALOG_MESSAGE, CoolAlertType.loading);
       }
     });
   }
@@ -113,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (_selectedIndex == 0) {
       return AddPrizeBondsScreen(prizeBondManagerBloc: _prizeBondManagerBloc);
     } else if (_selectedIndex == 1) {
-      return AllPrizeBondsScreen(allPrizeBonds: _dataStore.allPrizeBonds);
+      return AllPrizeBondsScreen(allPrizeBonds: _dataStore.numericallySortedPrizeBonds);
     }
     return _screens[_selectedIndex];
   }
@@ -127,7 +128,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // TODO: Check if a prizebond is already in db before insert
   // TODO: Add policy for checking multiple dialog
-  // TODO: Add sorting ability for the table
 }

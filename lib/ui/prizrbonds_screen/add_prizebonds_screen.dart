@@ -118,16 +118,15 @@ class _AddPrizeBondsScreenState extends State<AddPrizeBondsScreen> {
 
     _prizeBondNumbers = _prizeBondNumbers.toSet().toList();
     _insertIntoDb(_prizeBondNumbers);
+    _controller.text = "";
   }
 
   void _insertIntoDb(List<String> prizeBondNumbers) async {
     List<PrizeBond> _allBonds = [];
-
     for (String number in prizeBondNumbers) {
       _allBonds.add(PrizeBond(prizeBondNumber: number));
     }
-
-    widget.prizeBondManagerBloc.add(InsertDataEvent(_allBonds));
+    widget.prizeBondManagerBloc.add(InsertDataEvent(_allBonds, _error));
   }
 
   List<String> _processNumber(String numberText) {

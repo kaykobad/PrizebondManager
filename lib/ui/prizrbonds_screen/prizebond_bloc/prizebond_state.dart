@@ -53,11 +53,12 @@ class InsertingDataState extends PrizeBondManagerState {
 class InsertDataSuccessState extends PrizeBondManagerState {
   final List<int> ids;
   final List<PrizeBond> allPrizeBonds;
+  final List<String> errorIds;
 
-  InsertDataSuccessState(this.ids, this.allPrizeBonds);
+  InsertDataSuccessState(this.ids, this.allPrizeBonds, this.errorIds);
 
   @override
-  List<Object> get props => [ids, allPrizeBonds];
+  List<Object> get props => [ids, allPrizeBonds, errorIds];
 
   @override
   String toString() => "InsertDataSuccessState";

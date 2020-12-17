@@ -16,11 +16,12 @@ class InitiateDataFetchEvent extends PrizeBondManagerEvent {
 
 class InsertDataEvent extends PrizeBondManagerEvent {
   final List<PrizeBond> prizeBonds;
+  final List<String> errorIds;
 
-  InsertDataEvent(this.prizeBonds);
+  InsertDataEvent(this.prizeBonds, this.errorIds);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [prizeBonds, errorIds];
 
   @override
   String toString() => "InsertDataEvent";
